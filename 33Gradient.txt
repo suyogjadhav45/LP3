@@ -1,0 +1,28 @@
+import numpy as np
+import matplotlib.pyplot as plt
+def func(x):
+    return (x+3)**2
+def derivative(x):
+    return 2*(x+3)
+def gradient_descent(x_start, learning_rate, num_i):
+    x_val=[]
+    y_val=[]
+    x_curr=x_start
+    for _ in range(num_i):
+        x_val.append(x_curr)
+        y_val.append(func(x_curr))
+        x_curr=x_curr - learning_rate * derivative(x_curr)
+    return x_val, y_val
+x_start=2
+learning=0.1
+n=50
+x_val,y_val=gradient_descent(x_start,learning,n)
+x=np.linspace(-8,2,100)
+y=func(x)
+plt.plot(x,y, label='y = (x + 3)^2')
+plt.scatter(x_val, y_val, color='red', label='Gradient Descent Steps')
+plt.title('Gradient Descent to Find Local Minima')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.legend()
+plt.show()

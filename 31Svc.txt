@@ -1,0 +1,21 @@
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import r2_score,accuracy_score,mean_squared_error
+from sklearn.svm import SVC
+from sklearn.neighbors import KNeighborsClassifier
+df=pd.read_csv("emails.csv")
+df
+x=df.drop(["Prediction","Email No."],axis=1)
+y=df["Prediction"]
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2,random_state=42)
+svm=SVC(kernel='linear')
+svm.fit(x_train,y_train)
+svm_pred=svm.predict(x_test)
+svm_acc=accuracy_score(svm_pred,y_test)
+svm_acc
+knn=KNeighborsClassifier(n_neighbors=10)
+knn.fit(x_train,y_train)
+knn_pred=knn.predict(x_test)
+knn_acc=accuracy_score(knn_pred,y_test)
+knn_acc
